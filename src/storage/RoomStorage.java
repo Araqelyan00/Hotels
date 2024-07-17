@@ -24,9 +24,19 @@ public class RoomStorage {
         rooms = temp;
     }
 
-    public Room getAvailableRoomsByType(RoomType type, Hotel hotel){
+    public Room getAvailableRoomsByType(RoomType type){
         for(int i = 0; i < size; i++){
-            if(rooms[i].getRoomType() == type && rooms[i].getHotel() == hotel && !(rooms[i].isReserved())){
+            if(rooms[i].getRoomType() == type && !(rooms[i].isReserved())){
+                return (rooms[i]);
+            }
+        }
+        return null;
+    }
+
+    public Room getRoomByNumber(int number){
+        for(int i = 0; i < size; i++){
+            if(rooms[i].getNumber() == number){
+                rooms[i].setReserved(true);
                 return (rooms[i]);
             }
         }

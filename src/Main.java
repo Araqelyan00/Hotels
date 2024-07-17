@@ -19,7 +19,7 @@ public class Main {
     private static User registeredUser;
     static boolean runnable = true;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws HotelNotFoundException {
         initData();
         while (runnable) {
             Menu.printLoginCommands();
@@ -200,6 +200,7 @@ public class Main {
 
     private static void printAllHotels() {
         hotelStorage.printHotels();
+
     }
 
     private static void printHotelsByStarsCount() throws HotelNotFoundException {
@@ -212,10 +213,10 @@ public class Main {
         }
     }
 
-    private static void chooseHotel(String name) throws HotelNotFoundException {
+    private static void chooseHotel() throws HotelNotFoundException {
         System.out.println("Input Hotel's name :");
         try {
-            name = scanner.nextLine();
+            String name = scanner.nextLine();
             System.out.println(hotelStorage.getHotelByName(name).toString());
         }catch (HotelNotFoundException e){
             e.getMessage();
@@ -229,8 +230,39 @@ public class Main {
             command = -1;
         }
         switch (command) {
-
+            case LOGOUT:
+                run = false;
+                break;
+            case PRINT_ROOM_TYPES:
+                printRoomTypes();
+                break;
+            case PRINT_AVAILABLE_ROOMS_BY_TYPE:
+                printAvailableRooms();
+                break;
+            case RESERVE_ROOM:
+                reserveRoom();
+                break;
         }
+    }
+
+    private static void printRoomTypes(){
+        System.out.println(RoomType.values());
+    }
+
+    private static void printAvailableRooms(){
+        System.out.print("Input Rooms type :");
+        String roomType = scanner.nextLine().toUpperCase();
+        if (RoomType.valueOf(roomType) != null) {
+            roomStorage.getAvailableRoomsByType(RoomType.valueOf(roomType));
+        }
+    }
+
+    private static void reserveRoom(){
+        System.out.print("Input Rooms number :");
+        int roomNumber = Integer.parseInt(scanner.nextLine());
+        roomStorage.getRoomByNumber(roomNumber);
+        System.out.println("Room is reserved!");
+
     }
 
 }
