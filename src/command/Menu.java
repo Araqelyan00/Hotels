@@ -6,12 +6,12 @@ public interface Menu {
     int PRINT_HOTELS_BY_STARS_COUNT = 2;
     int CHOOSE_HOTEL_BY_NAME = 3;
 
-    int PRINT_ROOM_TYPES = 1;
-    int PRINT_AVAILABLE_ROOMS_BY_TYPE = 2;
-    int RESERVE_ROOM = 3;
+    int PRINT_ROOM_TYPES = 4;
+    int PRINT_AVAILABLE_ROOMS_BY_TYPE = 5;
+    int RESERVE_ROOM = 6;
 
-    int ADD_NEW_HOTEL = 1;
-    int DELETE_HOTEL_BY_NAME = 2;
+    int ADD_NEW_HOTEL = 7;
+    int DELETE_HOTEL_BY_NAME = 8;
 
     int EXIT = 0;
     int LOGIN = 1;
@@ -35,6 +35,12 @@ public interface Menu {
 
     static void printAdminCommands(){
         System.out.println("Input " + LOGOUT + " to log out");
+        System.out.println("Input " + PRINT_ALL_HOTELS + " to print all hotels");
+        System.out.println("Input " + PRINT_HOTELS_BY_STARS_COUNT + " to print hotels list by stars count");
+        System.out.println("Input " + CHOOSE_HOTEL_BY_NAME + " to choose hotel");
+        System.out.println("Input " + PRINT_ROOM_TYPES + " to print room types");
+        System.out.println("Input " + PRINT_AVAILABLE_ROOMS_BY_TYPE + " to print available rooms");
+        System.out.println("Input " + RESERVE_ROOM + " to reserve room");
         System.out.println("Input " + ADD_NEW_HOTEL + " to add new hotel");
         System.out.println("Input " + DELETE_HOTEL_BY_NAME + " to delete hotel by name");
         System.out.print("Input command :");

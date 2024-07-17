@@ -134,6 +134,24 @@ public class Main {
                 case LOGOUT:
                     run = false;
                     break;
+                case PRINT_ALL_HOTELS:
+                    printAllHotels();
+                    break;
+                case PRINT_HOTELS_BY_STARS_COUNT:
+                    printHotelsByStarsCount();
+                    break;
+                case CHOOSE_HOTEL_BY_NAME:
+                    chooseHotel();
+                    break;
+                case PRINT_ROOM_TYPES:
+                    printRoomTypes();
+                    break;
+                case PRINT_AVAILABLE_ROOMS_BY_TYPE:
+                    printAvailableRooms();
+                    break;
+                case RESERVE_ROOM:
+                    reserveRoom();
+                    break;
                 case ADD_NEW_HOTEL:
                     addHotel();
                     break;
