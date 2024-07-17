@@ -27,7 +27,7 @@ public interface Menu {
 
     static void printChooseRoomCommands(){
         System.out.println("Input " + LOGOUT + " to log out");
-        System.out.println("Input " + PRINT_ROOM_TYPES + " to print all rooms");
+        System.out.println("Input " + PRINT_ROOM_TYPES + " to print room types");
         System.out.println("Input " + PRINT_AVAILABLE_ROOMS_BY_TYPE + " to print available rooms");
         System.out.println("Input " + RESERVE_ROOM + " to reserve room");
         System.out.print("Input command :");
