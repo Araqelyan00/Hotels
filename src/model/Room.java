@@ -4,14 +4,12 @@ public class Room {
     private Hotel hotel;
     private int number;
     private RoomType roomType;
-    private String hotelName;
     private boolean isReserved;
 
-    public Room(Hotel hotel ,int number, RoomType roomType, String hotelName, boolean isReserved) {
+    public Room(Hotel hotel ,int number, RoomType roomType, boolean isReserved) {
         this.hotel = hotel;
         this.number = number;
         this.roomType = roomType;
-        this.hotelName = hotelName;
         this.isReserved = isReserved;
     }
 
@@ -41,14 +39,6 @@ public class Room {
 
     public void setRoomType(RoomType roomType) {
         this.roomType = roomType;
-    }
-
-    public String getHotelName() {
-        return hotelName;
-    }
-
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
     }
 
     public boolean isReserved() {

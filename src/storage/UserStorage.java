@@ -7,7 +7,7 @@ public class UserStorage {
 
     private static int size = 0;
 
-    private static void add(User user){
+    public void add(User user){
         if(users.length == size){
             extend();
         }
@@ -20,6 +20,15 @@ public class UserStorage {
             temp[i] = users[i];
         }
         users = temp;
+    }
+
+    public User getUserByPhoneNumber(String phoneNumber){
+        for(int i = 0; i < size; i++){
+            if(users[i].getPhoneNumber().equals(phoneNumber)){
+                return users[i];
+            }
+        }
+        return null;
     }
 
 

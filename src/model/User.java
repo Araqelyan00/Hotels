@@ -5,12 +5,18 @@ public class User {
     private String phoneNumber;
     private String password;
     private boolean haveReservedRoom;
+    private Role role;
 
-    public User(String name, String phoneNumber, String password, boolean haveReservedRoom) {
+    public User(){
+
+    }
+
+    public User(String name, String phoneNumber, String password, boolean haveReservedRoom , Role role) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.haveReservedRoom = haveReservedRoom;
+        this.role = role;
     }
 
     public String getName() {
@@ -43,5 +49,13 @@ public class User {
 
     public void setHaveReservedRoom(boolean haveReservedRoom) {
         this.haveReservedRoom = haveReservedRoom;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -14,7 +14,6 @@ public interface Menu {
 
     int ADD_NEW_HOTEL = 1;
     int DELETE_HOTEL_BY_NAME = 2;
-    int UPDATE_HOTEL_BY_NAME = 3;
 
     int EXIT = 0;
     int LOGIN = 1;
@@ -42,7 +41,6 @@ public interface Menu {
         System.out.println("Input " + LOGOUT + " to log out");
         System.out.println("Input " + ADD_NEW_HOTEL + " to add new hotel");
         System.out.println("Input " + DELETE_HOTEL_BY_NAME + " to delete hotel by name");
-        System.out.println("Input " + UPDATE_HOTEL_BY_NAME + " to update hotel by name");
     }
 
     static void printLoginCommands() {

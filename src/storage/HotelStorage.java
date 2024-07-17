@@ -7,7 +7,7 @@ public class HotelStorage {
     private static Hotel[] hotels = new Hotel[10];
     private static int size = 0;
 
-    public static void add(Hotel hotel) {
+    public void add(Hotel hotel) {
         if (hotels.length == size) {
             extend();
         }
