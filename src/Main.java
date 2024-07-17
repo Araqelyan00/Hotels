@@ -53,21 +53,21 @@ public class Main {
         Hotel Ibis = new Hotel("ibis", "Yerevan North Avenue 5/1", "010595959", 4, 5);
         hotelStorage.add(Ibis);
 
-        Room roomMarriott1 = new Room(Marriott, 1, RoomType.STUDIO_CLASSIC, false);
-        Room roomMarriott2 = new Room(Marriott, 2, RoomType.ONE_PLUS_ONE_CLASSIC, false);
+        Room roomMarriott1 = new Room(Marriott, 1, RoomType.STUDIO, false);
+        Room roomMarriott2 = new Room(Marriott, 2, RoomType.CLASSIC, false);
         Room roomMarriott3 = new Room(Marriott, 3, RoomType.LUXURY, true);
-        Room roomMarriott4 = new Room(Marriott, 4, RoomType.STUDIO_CLASSIC, false);
-        Room roomMarriott5 = new Room(Marriott, 5, RoomType.ONE_PLUS_ONE_CLASSIC, false);
+        Room roomMarriott4 = new Room(Marriott, 4, RoomType.STUDIO, false);
+        Room roomMarriott5 = new Room(Marriott, 5, RoomType.CLASSIC, false);
         roomStorage.add(roomMarriott1);
         roomStorage.add(roomMarriott2);
         roomStorage.add(roomMarriott3);
         roomStorage.add(roomMarriott4);
         roomStorage.add(roomMarriott5);
 
-        Room roomIbis1 = new Room(Ibis, 1, RoomType.STUDIO_CLASSIC, false);
+        Room roomIbis1 = new Room(Ibis, 1, RoomType.STUDIO, false);
         Room roomIbis2 = new Room(Ibis, 2, RoomType.LUXURY, false);
         Room roomIbis3 = new Room(Ibis, 3, RoomType.LUXURY, false);
-        Room roomIbis4 = new Room(Ibis, 4, RoomType.ONE_PLUS_ONE_CLASSIC, false);
+        Room roomIbis4 = new Room(Ibis, 4, RoomType.CLASSIC, false);
         roomStorage.add(roomIbis1);
         roomStorage.add(roomIbis2);
         roomStorage.add(roomIbis3);
@@ -189,14 +189,15 @@ public class Main {
 
     private static void deleteHotel() throws HotelNotFoundException {
         System.out.print("Input Hotel's name :");
-        String name = scanner.nextLine();;
+        String name = scanner.nextLine();
+        ;
         try {
-            if(hotelStorage.getHotelByName(name) == null){
+            if (hotelStorage.getHotelByName(name) == null) {
                 throw new HotelNotFoundException();
-            }else {
+            } else {
                 hotelStorage.deleteHotelByName(name);
             }
-        }catch (HotelNotFoundException e){
+        } catch (HotelNotFoundException e) {
             e.getMessage();
         }
     }
@@ -211,7 +212,7 @@ public class Main {
         int starsCount = Integer.parseInt(scanner.nextLine());
         try {
             System.out.println(hotelStorage.getHotelByStarsCount(starsCount).toString());
-        }catch (HotelNotFoundException e){
+        } catch (HotelNotFoundException e) {
             e.getMessage();
         }
     }
@@ -220,7 +221,7 @@ public class Main {
         System.out.print("Input Hotel's name :");
         try {
             String name = scanner.nextLine();
-            System.out.println(hotelStorage.getHotelByName(name).toString());
+            System.out.println("\n" + hotelStorage.getHotelByName(name).toString());
         } catch (HotelNotFoundException e) {
             e.getMessage();
         }
@@ -250,24 +251,40 @@ public class Main {
         }
     }
 
-    private static void printRoomTypes(){
-        System.out.println(RoomType.values());
-    }
-
-    private static void printAvailableRooms(){
-        System.out.print("Input Rooms type :");
-        String roomType = scanner.nextLine().toUpperCase();
-        if (RoomType.valueOf(roomType) != null) {
-            roomStorage.getAvailableRoomsByType(RoomType.valueOf(roomType));
+    private static void printRoomTypes() {
+        RoomType[] roomTypes = RoomType.values();
+        System.out.println("\nRoom Types");
+        for (RoomType value : roomTypes) {
+            System.out.print(value + "\n");
         }
+        System.out.println();
     }
 
-    private static void reserveRoom(){
-        System.out.print("Input Rooms number :");
-        int roomNumber = Integer.parseInt(scanner.nextLine());
-        roomStorage.getRoomByNumber(roomNumber);
-        System.out.println("Room is reserved!");
-
+    //    private static void printAvailableRooms() {
+//        System.out.print("\nInput Rooms type :");
+//        String type = scanner.nextLine();
+//        RoomType roomType = RoomType.valueOf(type.toUpperCase());
+//        Room[] rooms = roomStorage.getAvailableRoomsByType(roomType);
+//        try {
+//            for (Room room : rooms) System.out.println(room.toString());
+//            System.out.println();
+//        }catch (NullPointerException e) {
+//            e.getMessage();
+//        }
+//    }
+    private static void printAvailableRooms() throws HotelNotFoundException {
+        System.out.print("\nInput Rooms type :");
+        String type = scanner.nextLine();
+        RoomType roomType = RoomType.valueOf(type.toUpperCase());
+        roomStorage.getAvailableRoomsByType(roomType);
     }
 
-}
+        private static void reserveRoom () {
+            System.out.print("Input Rooms number :");
+            int roomNumber = Integer.parseInt(scanner.nextLine());
+            roomStorage.getRoomByNumber(roomNumber);
+            System.out.println("Room is reserved!");
+
+        }
+
+    }
