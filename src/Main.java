@@ -80,7 +80,7 @@ public class Main {
     }
 
     private static void register() {
-        System.out.print("Enter your name, phone number and password with commas.\nInput :");
+        System.out.print("\nEnter your name, phone number and password with commas.\nInput :");
         String userDataStr = scanner.nextLine();
         String[] userData = userDataStr.split(",");
         if (userData.length < 3) {
@@ -95,34 +95,38 @@ public class Main {
             user.setRole(Role.USER);
             userStorage.add(user);
         } else {
-            System.out.println("User with phone number " + userData[1] + " already exists");
+            System.out.println("\nUser with phone number " + userData[1] + " already exists\nPlease try it again and register a new phone number.\n");
         }
     }
 
     private static void login() throws HotelNotFoundException {
         System.out.print("Input your phone number and password with commas.\nInput :");
         String phonePasswordStr = scanner.nextLine();
-
-        String[] phonePassword = phonePasswordStr.split(",");
-
-        User user = userStorage.getUserByPhoneNumber(phonePassword[0]);
-        if (user == null) {
-            System.out.println("Invalid phone number");
-        } else {
-            if (user.getPassword().equals(phonePassword[1])) {
-                registeredUser = user;
-                if (user.getRole().equals(Role.ADMIN)) {
-                    loginAdmin();
-                } else if (user.getRole().equals(Role.USER)) {
-                    loginUser();
+        try {
+            String[] phonePassword = phonePasswordStr.split(",");
+            User user = userStorage.getUserByPhoneNumber(phonePassword[0]);
+            if (user == null) {
+                System.out.println("\nATTENTION!!\nUser not found.\nIf you have a registered account please do it again, input correct phone number and password.\n" +
+                        "Otherwise create a new account.\n");
+            } else {
+                if (user.getPassword().equals(phonePassword[1])) {
+                    registeredUser = user;
+                    if (user.getRole().equals(Role.ADMIN)) {
+                        loginAdmin();
+                    } else if (user.getRole().equals(Role.USER)) {
+                        loginUser();
+                    }
                 }
             }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("\nIncorrect data.\nPlease do it again input correct phone number and password.\n");
         }
     }
 
     private static void loginAdmin() throws HotelNotFoundException {
         boolean run = true;
         while (run) {
+            System.out.println();
             Menu.printAdminCommands();
             int command;
             try {
@@ -140,9 +144,6 @@ public class Main {
                 case PRINT_HOTELS_BY_STARS_COUNT:
                     printHotelsByStarsCount();
                     break;
-                case CHOOSE_HOTEL_BY_NAME:
-                    chooseHotel();
-                    break;
                 case PRINT_ROOM_TYPES:
                     printRoomTypes();
                     break;
@@ -158,32 +159,8 @@ public class Main {
                 case DELETE_HOTEL_BY_NAME:
                     deleteHotel();
                     break;
-            }
-        }
-    }
-
-    private static void loginUser() throws HotelNotFoundException {
-        boolean run = true;
-        while (run) {
-            Menu.printChooseHotelCommands();
-            int command;
-            try {
-                command = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                command = -1;
-            }
-            switch (command) {
-                case LOGOUT:
-                    run = false;
-                    break;
-                case PRINT_ALL_HOTELS:
-                    printAllHotels();
-                    break;
-                case PRINT_HOTELS_BY_STARS_COUNT:
-                    printHotelsByStarsCount();
-                    break;
-                case CHOOSE_HOTEL_BY_NAME:
-                    chooseHotel();
+                case PRINT_ALL_USERS:
+                    userStorage.printAllUsersList();
                     break;
             }
         }
@@ -221,30 +198,33 @@ public class Main {
     }
 
     private static void printAllHotels() {
+        System.out.println("\nHotels list.");
+        System.out.println();
         hotelStorage.printHotels();
 
     }
 
     private static void printHotelsByStarsCount() throws HotelNotFoundException {
         System.out.print("Input Hotel's stars count :");
-        int starsCount = Integer.parseInt(scanner.nextLine());
         try {
-            System.out.println(hotelStorage.getHotelByStarsCount(starsCount).toString());
-        } catch (HotelNotFoundException e) {
-            e.getMessage();
+            int starsCount = Integer.parseInt(scanner.nextLine());
+            try {
+                System.out.println(hotelStorage.getHotelByStarsCount(starsCount).toString());
+            } catch (HotelNotFoundException e) {
+                e.getMessage();
+            }
+        } catch (NullPointerException e) {
+            System.out.println("\nHotels not found.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nIncorrect data.");
         }
+
     }
 
-    private static void chooseHotel() throws HotelNotFoundException {
-        System.out.print("Input Hotel's name :");
-        try {
-            String name = scanner.nextLine();
-            System.out.println("\n" + hotelStorage.getHotelByName(name).toString());
-        } catch (HotelNotFoundException e) {
-            e.getMessage();
-        }
+    private static void loginUser() throws HotelNotFoundException {
         boolean run = true;
         while (run) {
+            System.out.println();
             Menu.printChooseRoomCommands();
             int command;
             try {
@@ -255,6 +235,12 @@ public class Main {
             switch (command) {
                 case LOGOUT:
                     run = false;
+                    break;
+                case PRINT_ALL_HOTELS:
+                    printAllHotels();
+                    break;
+                case PRINT_HOTELS_BY_STARS_COUNT:
+                    printHotelsByStarsCount();
                     break;
                 case PRINT_ROOM_TYPES:
                     printRoomTypes();
@@ -275,34 +261,42 @@ public class Main {
         for (RoomType value : roomTypes) {
             System.out.print(value + "\n");
         }
-        System.out.println();
+
     }
 
-    //    private static void printAvailableRooms() {
-//        System.out.print("\nInput Rooms type :");
-//        String type = scanner.nextLine();
-//        RoomType roomType = RoomType.valueOf(type.toUpperCase());
-//        Room[] rooms = roomStorage.getAvailableRoomsByType(roomType);
-//        try {
-//            for (Room room : rooms) System.out.println(room.toString());
-//            System.out.println();
-//        }catch (NullPointerException e) {
-//            e.getMessage();
-//        }
-//    }
     private static void printAvailableRooms() throws HotelNotFoundException {
-        System.out.print("\nInput Rooms type :");
-        String type = scanner.nextLine();
-        RoomType roomType = RoomType.valueOf(type.toUpperCase());
-        roomStorage.getAvailableRoomsByType(roomType);
-    }
-
-        private static void reserveRoom () {
-            System.out.print("Input Rooms number :");
-            int roomNumber = Integer.parseInt(scanner.nextLine());
-            roomStorage.getRoomByNumber(roomNumber);
-            System.out.println("Room is reserved!");
-
+        try {
+            System.out.print("\nInput Rooms type :");
+            String type = scanner.nextLine();
+            RoomType roomType = RoomType.valueOf(type.toUpperCase());
+            roomStorage.getAvailableRoomsByType(roomType);
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nIncorrect data.");
         }
-
     }
+
+    private static void reserveRoom() {
+        System.out.print("Input Hotel's name : ");
+        try {
+            String name = scanner.nextLine();
+            System.out.println("Your choice is \n" + hotelStorage.getHotelByName(name).toString());
+            System.out.print("Input Rooms number : ");
+            int roomNumber = Integer.parseInt(scanner.nextLine());
+            if (roomStorage.getRoomByNumber(roomNumber, hotelStorage.getHotelByName(name)) != null) {
+                System.out.print("Please input your name here : ");
+                String userName = scanner.nextLine();
+                userStorage.setHaveReservedRoom(userName);
+                System.out.println("Room is reserved!");
+            }else {
+                System.out.println("Room is not found or already reserved!\nPlease try again.");
+            }
+        } catch (HotelNotFoundException e) {
+            System.out.println("\nHotel not found.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("\nIncorrect data.");
+        } catch (NullPointerException e) {
+            System.out.println("\nSomething gone wrong, please try again.");
+        }
+    }
+
+}

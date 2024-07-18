@@ -24,21 +24,8 @@ public class RoomStorage {
         rooms = temp;
     }
 
-//    public Room[] getAvailableRoomsByType(RoomType type) {
-//        Room[] temp = new Room[size + 10];
-//        int index = 0;
-//
-//            for (int i = 0; i < size; i++) {
-//                if (rooms[i].getRoomType().equals(type) && !(rooms[i].isReserved())) {
-//                    temp[index] = rooms[i];
-//                    index++;
-//                }
-//            }
-//            return temp;
-//        }
-
     public void getAvailableRoomsByType(RoomType type) {
-        System.out.println("\nAvailable Rooms are");
+        System.out.println("\nAvailable Rooms are.\n");
         for (int i = 0; i < size; i++) {
             if (rooms[i].getRoomType().equals(type) && !(rooms[i].isReserved())) {
                 System.out.println(rooms[i].toString());
@@ -46,10 +33,9 @@ public class RoomStorage {
         }
     }
 
-
-    public Room getRoomByNumber(int number) {
+    public Room getRoomByNumber(int number,Hotel hotel) {
         for (int i = 0; i < size; i++) {
-            if (rooms[i].getNumber() == number) {
+            if (rooms[i].getNumber() == number && rooms[i].getHotel().equals(hotel) && !(rooms[i].isReserved())) {
                 rooms[i].setReserved(true);
                 return (rooms[i]);
             }

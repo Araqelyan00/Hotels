@@ -31,5 +31,28 @@ public class UserStorage {
         return null;
     }
 
+    public void printAllUsersList(){
+        for(int i = 0; i < size; i++){
+            System.out.println(users[i].toString());
+        }
+    }
+
+    public void setHaveReservedRoom(String userName){
+        for(int i = 0; i < size; i++){
+            if (users[i].getName().equals(userName)){
+                users[i].setHaveReservedRoom(true);
+            }
+        }
+    }
+
+    public User getUserByName(String name){
+        for(int i = 0; i < size; i++){
+            if (users[i].getName().equals(name)){
+                return users[i];
+            }
+        }
+        return null;
+    }
+
 
 }

@@ -57,6 +57,6 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel :" + name  + ", Stars" + stars + "\nAddress :" + address + ", Phone :" + phoneNumber;
+        return "Hotel : " + name  + ", Stars : " + stars + "\nAddress : " + address + ", Phone : " + phoneNumber;
     }
 }
